@@ -15,7 +15,7 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     
     if (password !== confirmPassword) {
@@ -32,7 +32,7 @@ export default function RegisterPage() {
     setError('');
 
     try {
-      await register(name, email, password);
+      await register({ name, email, password });
       // AuthContext register should handle redirect
     } catch (err: any) {
       setError(err.message || 'Failed to create account. Please try again.');

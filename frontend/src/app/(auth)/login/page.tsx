@@ -13,13 +13,13 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
     try {
-      await login(email, password);
+      await login({ email, password });
       // AuthContext login should handle redirect or state update
     } catch (err: any) {
       setError(err.message || 'Failed to sign in. Please check your credentials.');

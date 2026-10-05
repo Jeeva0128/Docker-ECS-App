@@ -99,8 +99,8 @@ export function SearchDialog() {
               <div className="space-y-1">
                 {results.map((task) => (
                   <button
-                    key={task.id || (task as any)._id}
-                    onClick={() => handleSelect(task.id || (task as any)._id)}
+                    key={task._id || (task as any)._id}
+                    onClick={() => handleSelect(task._id || (task as any)._id)}
                     className="w-full flex items-center justify-between px-4 py-3 text-sm rounded-lg hover:bg-zinc-800/50 transition-colors group"
                   >
                     <div className="flex items-center gap-3">

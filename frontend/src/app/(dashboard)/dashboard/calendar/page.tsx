@@ -33,7 +33,7 @@ export default function CalendarPage() {
         const data = await taskService.getTasks({ limit: 100 })
         setTasks(data.tasks.filter(t => t.dueDate))
       } catch (error) {
-        toast({ title: 'Error', description: 'Failed to load calendar tasks', variant: 'destructive' })
+        toast({ title: 'Error', description: 'Failed to load calendar tasks', variant: "error" })
       } finally {
         setIsLoading(false)
       }
@@ -117,7 +117,7 @@ export default function CalendarPage() {
                     <div className="flex-1 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
                       {dayTasks.map(task => (
                         <div 
-                          key={task.id || (task as any)._id}
+                          key={task._id || (task as any)._id}
                           className={cn(
                             "text-xs px-2 py-1 rounded truncate",
                             task.status === 'completed' ? "bg-zinc-800 text-zinc-500 line-through" :

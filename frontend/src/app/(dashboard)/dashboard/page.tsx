@@ -26,7 +26,7 @@ export default function DashboardPage() {
       setIsLoading(true)
       setError(null)
       const [statsData, tasksData] = await Promise.all([
-        taskService.getTaskStats(),
+        taskService.getStats(),
         taskService.getTasks({ limit: 5 })
       ])
       setStats(statsData)
@@ -43,7 +43,7 @@ export default function DashboardPage() {
   }, [])
 
   if (isLoading) return <DashboardSkeleton />
-  if (error) return <ErrorState message={error.message} onRetry={loadData} />
+  if (error) return <ErrorState description={error.message} onRetry={loadData} />
   if (!stats) return null
 
   return (
@@ -97,7 +97,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
             {recentTasks.map(task => (
               <TaskCard
-                key={task.id || task._id}
+                key={task._id || task._id}
                 task={task}
                 onEdit={() => router.push('/dashboard/tasks')}
                 onDelete={() => router.push('/dashboard/tasks')}

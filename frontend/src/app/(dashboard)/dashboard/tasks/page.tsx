@@ -34,7 +34,7 @@ export default function TasksPage() {
       setTasks(data.tasks)
       setPagination(data.pagination)
     } catch (error) {
-      toast({ title: 'Error', description: 'Failed to load tasks', variant: 'destructive' })
+      toast({ title: 'Error', description: 'Failed to load tasks', variant: "error" })
     } finally {
       setIsLoading(false)
     }
@@ -52,7 +52,7 @@ export default function TasksPage() {
       setIsFormOpen(false)
       loadTasks()
     } catch (error) {
-      toast({ title: 'Error', description: 'Failed to create task', variant: 'destructive' })
+      toast({ title: 'Error', description: 'Failed to create task', variant: "error" })
     } finally {
       setIsSubmitting(false)
     }
@@ -62,14 +62,14 @@ export default function TasksPage() {
     if (!selectedTask) return
     try {
       setIsSubmitting(true)
-      const taskId = selectedTask.id || (selectedTask as any)._id
+      const taskId = selectedTask._id || (selectedTask as any)._id
       await taskService.updateTask(taskId, data)
       toast({ title: 'Success', description: 'Task updated successfully' })
       setIsFormOpen(false)
       if (isDetailsOpen) loadTaskDetails(taskId)
       loadTasks()
     } catch (error) {
-      toast({ title: 'Error', description: 'Failed to update task', variant: 'destructive' })
+      toast({ title: 'Error', description: 'Failed to update task', variant: "error" })
     } finally {
       setIsSubmitting(false)
     }
@@ -78,27 +78,27 @@ export default function TasksPage() {
   const handleDeleteTask = async (task: Task) => {
     if (!confirm('Are you sure you want to delete this task?')) return
     try {
-      const taskId = task.id || (task as any)._id
+      const taskId = task._id || (task as any)._id
       await taskService.deleteTask(taskId)
       toast({ title: 'Success', description: 'Task deleted successfully' })
       setIsDetailsOpen(false)
       loadTasks()
     } catch (error) {
-      toast({ title: 'Error', description: 'Failed to delete task', variant: 'destructive' })
+      toast({ title: 'Error', description: 'Failed to delete task', variant: "error" })
     }
   }
 
   const handleStatusChange = async (task: Task, status: TaskStatus) => {
     try {
-      const taskId = task.id || (task as any)._id
+      const taskId = task._id || (task as any)._id
       await taskService.updateTask(taskId, { status })
       toast({ title: 'Success', description: 'Task status updated' })
-      if (isDetailsOpen && (selectedTask?.id === taskId || (selectedTask as any)?._id === taskId)) {
+      if (isDetailsOpen && (selectedTask?._id === taskId || (selectedTask as any)?._id === taskId)) {
         setSelectedTask({ ...task, status })
       }
       loadTasks()
     } catch (error) {
-      toast({ title: 'Error', description: 'Failed to update status', variant: 'destructive' })
+      toast({ title: 'Error', description: 'Failed to update status', variant: "error" })
     }
   }
 
@@ -107,7 +107,7 @@ export default function TasksPage() {
       const task = await taskService.getTask(id)
       setSelectedTask(task)
     } catch (error) {
-      toast({ title: 'Error', description: 'Failed to load task details', variant: 'destructive' })
+      toast({ title: 'Error', description: 'Failed to load task details', variant: "error" })
     }
   }
 
@@ -155,7 +155,7 @@ export default function TasksPage() {
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
             {tasks.map(task => (
               <TaskCard
-                key={task.id || (task as any)._id}
+                key={task._id || (task as any)._id}
                 task={task}
                 onEdit={openEditTask}
                 onDelete={handleDeleteTask}
@@ -189,10 +189,7 @@ export default function TasksPage() {
           icon={ListTodo}
           title="No tasks found"
           description="Try adjusting your filters or create a new task."
-          action={{
-            label: "Clear Filters",
-            onClick: () => setFilters({ page: 1, limit: 12 })
-          }}
+          action={<Button onClick={() => setFilters({ page: 1, limit: 12 })}>Clear Filters</Button>}
         />
       )}
 
