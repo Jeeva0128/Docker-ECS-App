@@ -33,6 +33,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-**Important for deployment**: Ensure you set the `TASKFLOW_API_URL` environment variable in your Vercel project settings to your backend API URL (e.g., `http://18.60.20.233:3000`). The Next.js server will proxy `/api/*` and `/health` requests to this backend URL, avoiding insecure mixed-content issues in the browser.
+**Important for deployment**: Ensure you set the `NEXT_PUBLIC_API_URL` environment variable in your Vercel project settings to your backend API URL (e.g., `http://18.60.20.233:3000`). This configures the frontend client to direct all API requests (`/api/*` and `/health`) to the deployed backend. Note: Using an HTTP IP address instead of an HTTPS domain may result in mixed-content errors in the browser when deployed on Vercel's HTTPS domains.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
