@@ -246,7 +246,7 @@ Open your browser and navigate to `http://localhost:5173`.
 
 | Variable | Required | Default | Description |
 |---|---|---|---|
-| `VITE_API_URL` | No | `""` (Empty) | Backend API base URL. When blank, the Vite dev server proxy routes `/api` and `/health` to `http://localhost:3000`. Set to `http://localhost:3000` or the production API domain when running standalone. |
+| `TASKFLOW_API_URL` | No | `http://localhost:3000` | Backend API base URL. Used by Next.js server (Vercel) to proxy `/api/*` and `/health` requests to the actual backend URL. Set this to your backend's IP/domain (e.g., `http://16.113.163.105:3000`) for production deployment. |
 
 ---
 
